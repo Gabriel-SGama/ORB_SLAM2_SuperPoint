@@ -1,0 +1,6 @@
+build/
+Thirdparty/
+Vocabulary/
+results/
+.vscode/
+lib/

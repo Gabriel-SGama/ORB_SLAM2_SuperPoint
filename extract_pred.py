@@ -20,6 +20,10 @@ def make_command(seq, model):
             index = 1
         elif int_seq >= 4 and int_seq <= 12:
             index = 2
+        else:
+            print("sequence ", seq, " does not have a config file registered")
+            print("using last file")
+            index = 2
 
         yaml_file = yaml_path + yaml_options[index] + ".yaml"
 
@@ -34,14 +38,17 @@ def make_command(seq, model):
 
 if __name__ == "__main__":
 
+    # seqs_to_eval = ["00", "01", "02", "03", "04", "05"]
     # seqs_to_eval = ["00"]
-    seqs_to_eval = ["99"]
-    if len(seqs_to_eval) == 0:
-        seqs_to_eval = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
+    # seqs_to_eval = ["00", "01", "02", "03", "04", "05"]
+    seqs_to_eval = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
 
-    models_to_eval = ["traced_model_pretrained.pt"]
+    models_to_eval = ["traced_model_normal_train_150000.pt", "traced_model_ssmall_ML2_180000.pt"]
+    # models_to_eval = ["traced_model_ssmall_ML2_180000.pt"]
+    # models_to_eval = ["traced_model_pretrained.pt"]
 
-    nruns = 2
+    nruns = 1
+    add_runs = True
 
     os.makedirs("results", exist_ok=True)
 
@@ -53,7 +60,16 @@ if __name__ == "__main__":
 
             command = make_command(seq, model)
 
-            print("running command: ", command)
+            print("running command: ", command, "\n")
+
+            run_files = glob(new_dir + "/*.txt")
+            run_files = [file for file in run_files if file.split("/")[-1].split(".")[0].isdigit()]
+
+            last_run = 0
+            if len(run_files) > 0 and add_runs:
+                last_run = int(run_files[-1].split("/")[-1].split(".")[0]) + 1
+
             for i in range(nruns):
+
                 os.system(command)
-                os.system("mv KeyFrameTrajectory.txt " + new_dir + "/" + str(i) + ".txt")
+                os.system("mv KeyFrameTrajectory.txt " + new_dir + "/" + str(i + last_run) + ".txt")

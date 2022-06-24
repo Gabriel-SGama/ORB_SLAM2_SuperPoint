@@ -142,6 +142,11 @@ void SPDetector::detect(cv::Mat& img, bool cuda) {
     semi = semi.contiguous().view({-1, Hc * 8, Wc * 8});  // [B, H, W]
     semi = semi.squeeze(0);
 
+    if (use_cuda) {
+        semi = semi.to(torch::kCPU);
+        out[1] = out[1].to(torch::kCPU);
+    }
+
     // auto prob = out[0].squeeze(0);  // [H, W]
     mProb = semi;    // [H, W]
     mDesc = out[1];  // [1, 256, H/8, W/8]

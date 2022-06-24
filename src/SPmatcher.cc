@@ -35,7 +35,7 @@ namespace ORB_SLAM2 {
 // const float SPmatcher::TH_HIGH = 0.70;
 // const float SPmatcher::TH_LOW = 0.30;
 
-const float SPmatcher::TH_HIGH = 1.8;
+const float SPmatcher::TH_HIGH = 1.5;
 const float SPmatcher::TH_LOW = 0.7;
 const int SPmatcher::HISTO_LENGTH = 30;
 
