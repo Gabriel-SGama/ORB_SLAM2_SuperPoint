@@ -4,6 +4,7 @@ import numpy as np
 
 GT_POS_DIR = "/home/gama/Documentos/datasets/kitti/data_odometry_poses/dataset/poses/"
 PATH_TO_SEQ = "/home/gama/Documentos/datasets/kitti/data_odometry_color/dataset/sequences/"
+results_path = "results_pang_16_08/"
 
 
 def createGTFile(tumFile, gtFile, timeFile, savePath):
@@ -64,19 +65,18 @@ def saveResults(pathKittiFile, gtkFile, pathToplot):
         + " -s -a -va --plot_mode xz --save_plot "
         + pathToplot
         + run
-        + ".png --save_results results/"
+        + ".png --save_results "
+        + results_path
         + seq
         + "/"
         + model
         + "/"
         + run
-        + "ape_res.zip"
+        + "_ape_res.zip"
     )
 
 
 if __name__ == "__main__":
-
-    results_path = "results/"
 
     folders = []
     print("eval results in directorys:")

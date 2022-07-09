@@ -8,6 +8,7 @@ exec_path = "./Examples/Monocular/mono_kitti"
 vocab_path = "Vocabulary/superpoint_voc.yml.gz"
 yaml_path = "Examples/Monocular/KITTI"
 yaml_options = ["00-02", "03", "04-12"]
+results_path = "results_pang_16_08/"
 
 
 def make_command(seq, model):
@@ -41,21 +42,22 @@ if __name__ == "__main__":
     # seqs_to_eval = ["00", "01", "02", "03", "04", "05"]
     # seqs_to_eval = ["00"]
     # seqs_to_eval = ["00", "01", "02", "03", "04", "05"]
-    seqs_to_eval = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
+    # seqs_to_eval = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
+    seqs_to_eval = ["07"]
 
-    models_to_eval = ["traced_model_normal_train_150000.pt", "traced_model_ssmall_ML2_180000.pt"]
-    # models_to_eval = ["traced_model_ssmall_ML2_180000.pt"]
+    # models_to_eval = ["traced_model_normal_train_150000.pt", "traced_model_ssmall_ML2_180000.pt"]
+    models_to_eval = ["traced_model_ssmall_ML2_180000.pt"]
     # models_to_eval = ["traced_model_pretrained.pt"]
 
     nruns = 1
     add_runs = True
 
-    os.makedirs("results", exist_ok=True)
+    os.makedirs(results_path, exist_ok=True)
 
     for seq in seqs_to_eval:
         for model in models_to_eval:
             model_name = model.split(".")[0]
-            new_dir = "results/" + seq + "/" + model_name + "/"
+            new_dir = results_path + seq + "/" + model_name + "/"
             os.makedirs(new_dir, exist_ok=True)
 
             command = make_command(seq, model)
