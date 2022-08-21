@@ -276,7 +276,18 @@ void System::Reset() {
 }
 
 void System::Shutdown() {
+    usleep(10 * 1e6);
+    while(mpLoopCloser->isRunningGBA()){
+        cout << "running GBA" << endl;
+        usleep(5000);
+    }
+
     mpLocalMapper->RequestFinish();
+
+    while(!mpLocalMapper->isFinished()){
+        usleep(5000);
+    }
+
     mpLoopCloser->RequestFinish();
     if (mpViewer) {
         mpViewer->RequestFinish();
@@ -372,9 +383,9 @@ void System::SaveKeyFrameTrajectoryTUM(const string &filename) {
 
         // pKF->SetPose(pKF->GetPose()*Two);
 
-        if (pKF->isBad())
+        if (pKF->isBad()) {
             continue;
-
+        }
         cv::Mat R = pKF->GetRotation().t();
         vector<float> q = Converter::toQuaternion(R);
         cv::Mat t = pKF->GetCameraCenter();

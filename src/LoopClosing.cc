@@ -414,6 +414,7 @@ void LoopClosing::CorrectLoop()
 
         if(mpThreadGBA)
         {
+            // cout << "detach thread" << endl;
             mpThreadGBA->detach();
             delete mpThreadGBA;
         }
@@ -421,9 +422,7 @@ void LoopClosing::CorrectLoop()
 
     // Wait until Local Mapping has effectively stopped
     while(!mpLocalMapper->isStopped())
-    {
         usleep(1000);
-    }
 
     // Ensure current keyframe is updated
     mpCurrentKF->UpdateConnections();
@@ -561,6 +560,7 @@ void LoopClosing::CorrectLoop()
     }
 
     // Optimize graph
+    // usleep(1000);
     Optimizer::OptimizeEssentialGraph(mpMap, mpMatchedKF, mpCurrentKF, NonCorrectedSim3, CorrectedSim3, LoopConnections, mbFixScale);
 
     mpMap->InformNewBigChange();
