@@ -1,3 +1,12 @@
+# Known Bug
+For the sequences that end with loop closure, sometimes occurs seg fault. In those cases, we executed the code more than the desired number of runs and removed the unneeded trajectories.
+
+# Differences between repositories
+
+To use the pre trained model in the original [code](https://github.com/KinglittleQ/SuperPoint_SLAM), the model needed to be defined in the C++ code. Here we use the torch.jit.script lib to import the model.
+
+The pretrained models here are from https://github.com/Gabriel-SGama/Semantic-SuperPoint.
+
 # SuperPoint-SLAM
 
 **UPDATE: This repo is no longer maintained now. Please refer to https://github.com/jiexiong2016/GCNv2_SLAM if you are intereseted in SLAM with deep learning image descriptors.**
@@ -50,7 +59,7 @@ It may take quite a long time to download and build. Please wait with patience.
 
 Clone the repository:
 ```
-git clone https://github.com/KinglittleQ/SuperPoint_SLAM.git SuperPoint_SLAM
+git clone https://github.com/Gabriel-SGama/ORB_SLAM2_SuperPoint.git
 ```
 
 We provide a script `build.sh` to build the *Thirdparty* libraries and *SuperPoint_SLAM*. Please make sure you have **installed all required dependencies** (see section 2). Execute:
@@ -91,19 +100,19 @@ You can download the vocabulary from [google drive](https://drive.google.com/fil
 
 Here are the evaluation results of monocular benchmark on KITTI using RMSE(m) as metric.
 
-| Seq. |  Dimension  |    ORB    | SuperPoint |
-| :--: | :---------: | :-------: | :--------: |
-|  00  |  564 x 496  | **5.33**  |     X      |
-|  01  | 1157 × 1827 |     X     |     X      |
-|  02  |  599 × 946  | **21.28** |     X      |
-|  03  |  471 × 199  |   1.51    |  **1.04**  |
-|  04  |  0.5 × 394  |   1.62    |  **0.35**  |
-|  05  |  479 × 426  |   4.85    |  **3.73**  |
-|  06  |  23 × 457   | **12.34** |   14.27    |
-|  07  |  191 × 209  | **2.26**  |    3.02    |
-|  08  |  808 × 391  |   46.68   | **39.63**  |
-|  09  |  465 × 568  | **6.62**  |     X      |
-|  10  |  671 × 177  |   8.80    |  **5.31**  |
+| Seq.  |  Dimension  |    ORB    | SuperPoint |
+| :---: | :---------: | :-------: | :--------: |
+|  00   |  564 x 496  | **5.33**  |     X      |
+|  01   | 1157 × 1827 |     X     |     X      |
+|  02   |  599 × 946  | **21.28** |     X      |
+|  03   |  471 × 199  |   1.51    |  **1.04**  |
+|  04   |  0.5 × 394  |   1.62    |  **0.35**  |
+|  05   |  479 × 426  |   4.85    |  **3.73**  |
+|  06   |  23 × 457   | **12.34** |   14.27    |
+|  07   |  191 × 209  | **2.26**  |    3.02    |
+|  08   |  808 × 391  |   46.68   | **39.63**  |
+|  09   |  465 × 568  | **6.62**  |     X      |
+|  10   |  671 × 177  |   8.80    |  **5.31**  |
 
 ## Citation
 
